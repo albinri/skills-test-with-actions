@@ -32,6 +32,21 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+
+  build:
+     runs-on: ubuntu-latest
+     steps:
+        - uses: actions/checkout@v3
+
+        - name: Run markdown lint
+          run: |
+           npm install remark-cli remark-preset-lint-consistent
+           npx remark . --use remark-preset-lint-consistent --frail
+
+         - uses: actions/upload-artifact@v3
+           with:
+              name: remark-lint-report
+              path: public/
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
